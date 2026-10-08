@@ -3,30 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستم مدیریت صرافی</title>
+    <title>صرافی تیمورشاهی</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Tahoma, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Tahoma, sans-serif; }
+        :root { 
+            --primary: #0F766E; --danger: #DC2626; --gray: #6B7280; --light: #F3F4F6; 
+            --white: #FFFFFF; --accent: #F59E0B; --income: #10B981; --expense: #EF4444;
         }
-        :root {
-            --primary: #0F766E;
-            --danger: #DC2626;
-            --gray: #6B7280;
-            --light: #F3F4F6;
-            --white: #FFFFFF;
-            --accent: #F59E0B;
-            --blue: #3B82F6;
-            --income: #10B981;
-            --expense: #EF4444;
-        }
-        body {
-            background: #EEF2F5;
-            min-height: 100vh;
-        }
+        body { background: #EEF2F5; min-height: 100vh; }
 
+        /* صفحه ورود */
         .login-container {
             max-width: 420px;
             margin: 80px auto;
@@ -38,14 +24,21 @@
         .login-container h2 {
             text-align: center;
             color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 26px;
+        }
+        .login-container p.subtitle {
+            text-align: center;
+            color: var(--gray);
             margin-bottom: 24px;
+            font-size: 15px;
         }
         input, select, button, textarea {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             border: 1px solid #D1D5DB;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 15px;
         }
         button {
@@ -56,95 +49,92 @@
             font-size: 16px;
         }
         button:hover { background: #0D9488; }
-        .btn-sm { width: auto; padding: 8px 14px; font-size: 14px; margin: 4px; }
-        .btn-logout { background: var(--danger); }
-        .btn-logout:hover { background: #B91C1C; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #B91C1C; }
         .btn-accent { background: var(--accent); }
         .btn-accent:hover { background: #D97706; }
-        .btn-blue { background: var(--blue); }
-        .btn-blue:hover { background: #2563EB; }
-        .btn-income { background: var(--income); }
-        .btn-income:hover { background: #059669; }
-        .btn-expense { background: var(--expense); }
-        .btn-expense:hover { background: #DC2626; }
-
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+        .btn-sm { width: auto; padding: 6px 12px; font-size: 13px; margin: 2px; }
+        .hint {
+            text-align: center;
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 15px;
+            line-height: 1.8;
         }
-        .hidden { display: none !important; }
-        .nav-bar {
-            background: var(--white);
-            padding: 12px 5%;
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-        }
-        .nav-btn {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 8px 16px;
-            margin: 4px;
-        }
-        .nav-btn:hover, .nav-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        .page {
-            display: none;
-            padding: 25px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .page.active { display: block; }
-        h2 { color: var(--primary); margin-bottom: 20px; }
-        h3 { color: #374151; margin-bottom: 15px; }
-        .card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 10px;
-            text-align: right;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-        th { background: var(--light); color: var(--primary); }
         .message {
             padding: 12px;
             border-radius: 6px;
             margin: 10px 0;
             display: none;
+            text-align: center;
         }
         .success { background: #D1FAE5; color: #065F46; display: block; }
         .error { background: #FEE2E2; color: #991B1B; display: block; }
-        .restricted {
-            background: #FFFBEB;
-            border: 1px solid #FCD34D;
-            padding: 10px;
-            border-radius: 6px;
-            margin: 10px 0;
-            color: #92400E;
+        .hidden { display: none !important; }
+
+        /* هدر و منو */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        .summary-box {
+        header h1 { font-size: 20px; }
+        .btn-logout {
+            background: var(--danger);
+            width: auto;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .nav-bar {
+            background: var(--white);
+            padding: 10px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            border-bottom: 1px solid #ddd;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .nav-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 14px;
+            margin: 4px 2px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* محتوای صفحه */
+        .page {
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+        .page.active { display: block; }
+        h2 { color: var(--primary); margin-bottom: 20px; font-size: 20px; }
+        h3 { color: #374151; margin-bottom: 12px; font-size: 16px; }
+        .card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
             margin-bottom: 20px;
         }
         .summary-item {
@@ -157,904 +147,490 @@
         .summary-item.expense { border-right: 4px solid var(--expense); }
         .summary-item strong {
             display: block;
-            font-size: 22px;
+            font-size: 20px;
             color: var(--primary);
-            margin-top: 8px;
+            margin-top: 5px;
         }
-        .summary-item.income strong { color: var(--income); }
-        .summary-item.expense strong { color: var(--expense); }
-        .period-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
-        .period-tab {
-            padding: 10px 18px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
+        th, td {
+            padding: 10px 8px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
         }
-        .period-tab.active {
-            background: var(--primary);
-            color: white;
-        }
-        .date-range {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-            padding: 12px;
-            background: var(--light);
-            border-radius: 8px;
-        }
-        .date-range input { width: auto; margin: 0; }
-        .print-btn { background: var(--accent); width: auto; }
-        .print-btn:hover { background: #D97706; }
+        th { background: var(--light); color: var(--primary); }
         .text-center { text-align: center; color: var(--gray); padding: 20px; }
-        .balance-positive { color: #059669; font-weight: bold; }
-        .balance-negative { color: #DC2626; font-weight: bold; }
         .search-box { margin-bottom: 15px; }
         .search-box input { margin: 0; }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .tag.income { background: #D1FAE5; color: #065F46; }
+        .tag.expense { background: #FEE2E2; color: #991B1B; }
+        .tag.pending { background: #FEF3C7; color: #92400E; }
+        .tag.done { background: #D1FAE5; color: #065F46; }
+        .tag.cancel { background: #FEE2E2; color: #991B1B; }
     </style>
 </head>
 <body>
 
-<!-- ============== صفحه ورود ============== -->
+<!-- ========== صفحه ورود ========== -->
 <div id="loginPage" class="login-container">
-    <h2>💱 سیستم صرافی</h2>
+    <h2>💱 صرافی تیمورشاهی</h2>
+    <p class="subtitle">سیستم مدیریت صرافی</p>
+    
     <input type="text" id="username" placeholder="نام کاربری">
     <input type="password" id="password" placeholder="رمز عبور">
-    <button onclick="login()">ورود به سیستم</button>
-    <p style="text-align:center; font-size:13px; color:var(--gray); margin-top:10px;">
-        ادمین: admin / 1234<br>
-        کاربر عادی: user / 1234
-    </p>
+    
+    <button onclick="loginUser()">ورود به سیستم</button>
+    
     <div id="loginMsg" class="message"></div>
+    
+    <p class="hint">
+        🔑 ادمین: <strong>admin</strong> / <strong>1234</strong><br>
+        🔑 کاربر عادی: <strong>user</strong> / <strong>1234</strong>
+    </p>
 </div>
 
-<!-- ============== سیستم اصلی ============== -->
-<div id="mainApp" class="hidden">
+<!-- ========== سیستم اصلی ========== -->
+<div id="mainSystem" class="hidden">
+    <!-- هدر -->
     <header>
-        <h1>💱 سیستم مدیریت صرافی</h1>
+        <h1>💱 صرافی تیمورشاهی</h1>
         <div>
-            <span id="userInfo"></span>
-            <button class="btn-logout" style="width:auto; padding:8px 16px; margin-right:10px;" onclick="logout()">خروج</button>
+            <span id="userNameDisplay"></span>
+            <button class="btn-logout" onclick="logoutUser()">خروج</button>
         </div>
     </header>
 
+    <!-- منو -->
     <div class="nav-bar">
         <button class="nav-btn active" data-page="dashboard">داشبورد</button>
-        <button class="nav-btn" data-page="customers">👤 حساب مشتریان</button>
-        <button class="nav-btn" data-page="transaction">ثبت معامله</button>
-        <button class="nav-btn" data-page="hawala">ثبت حواله</button>
-        <button class="nav-btn" data-page="expense">💵 مصارف روزانه</button>
-        <button class="nav-btn" data-page="reports">📊 گزارشات</button>
-        <button class="nav-btn" data-page="list">لیست‌ها</button>
-        <button id="adminNav" class="nav-btn hidden" data-page="admin">مدیریت</button>
+        <button class="nav-btn" data-page="customers">مشتریان</button>
+        <button class="nav-btn" data-page="transactions">معاملات</button>
+        <button class="nav-btn" data-page="hawala">حواله‌ها</button>
+        <button class="nav-btn" data-page="expenses">مصارف</button>
+        <button class="nav-btn" data-page="reports">گزارشات</button>
     </div>
 
-    <!-- === داشبورد === -->
-    <section id="dashboard" class="page active">
+    <!-- ===== صفحه داشبورد ===== -->
+    <div id="dashboard" class="page active">
         <h2>داشبورد</h2>
         <div class="card">
-            <h3>خوش آمدید! 👋</h3>
-            <p id="roleInfo"></p>
+            <h3>✅ خوش آمدید به صرافی تیمورشاهی!</h3>
+            <p>امروز: <span id="todayDate"></span></p>
+        </div>
+        <div class="summary-grid">
+            <div class="summary-item income">امروز دریافت<strong id="dashIncome">۰</strong></div>
+            <div class="summary-item expense">امروز پرداخت<strong id="dashExpense">۰</strong></div>
+            <div class="summary-item">مجموع معاملات<strong id="dashTrans">۰</strong></div>
+            <div class="summary-item">مشتریان<strong id="dashCust">۰</strong></div>
         </div>
         <div class="card">
-            <h3>خلاصه امروز</h3>
-            <div class="summary-box">
-                <div class="summary-item income">پول دریافت شده<strong id="todayIncome">۰</strong></div>
-                <div class="summary-item expense">پول پرداخت شده<strong id="todayExpense">۰</strong></div>
-                <div class="summary-item">مجموع معاملات<strong id="todayTrans">۰</strong></div>
-                <div class="summary-item">مجموع حواله‌ها<strong id="todayHawala">۰</strong></div>
-                <div class="summary-item expense">مجموع مصارف<strong id="todayExpenses">۰</strong></div>
-                <div class="summary-item">موجودی خالص<strong id="todayBalance">۰</strong></div>
-            </div>
+            <h3>آخرین معاملات</h3>
+            <table><thead><tr><th>تاریخ</th><th>مشتری</th><th>نوع</th><th>مبلغ</th></tr></thead><tbody id="lastTrans"></tbody></table>
         </div>
-    </section>
+    </div>
 
-    <!-- === حساب مشتریان (کاته) === -->
-    <section id="customers" class="page">
-        <h2>👤 حساب مشتریان (کاته)</h2>
-        
+    <!-- ===== صفحه مشتریان ===== -->
+    <div id="customers" class="page">
+        <h2>مدیریت مشتریان</h2>
         <div class="card">
             <h3>ثبت مشتری جدید</h3>
             <form id="customerForm">
                 <input type="text" id="custName" placeholder="نام کامل مشتری" required>
                 <input type="text" id="custPhone" placeholder="شماره تماس">
-                <input type="text" id="custDesc" placeholder="توضیحات (آدرس و غیره)">
+                <textarea id="custNote" placeholder="توضیحات" rows="2"></textarea>
                 <button type="submit">✅ ثبت مشتری</button>
             </form>
             <div id="custMsg" class="message"></div>
         </div>
-
         <div class="card">
-            <h3>جستجوی مشتری</h3>
-            <div class="search-box">
-                <input type="text" id="searchCustomer" placeholder="نام یا شماره مشتری را بنویسید..." oninput="filterCustomers()">
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام مشتری</th>
-                        <th>شماره تماس</th>
-                        <th>نزد ما (بدهی ما)</th>
-                        <th>نزد او (بدهی او)</th>
-                        <th>موجودی خالص</th>
-                        <th>تاریخ آخرین تغییر</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody id="customerList">
-                    <tr><td colspan="8" class="text-center">هنوز مشتری‌ای ثبت نشده</td></tr>
-                </tbody>
-            </table>
+            <h3>لیست مشتریان</h3>
+            <div class="search-box"><input type="text" id="searchCust" placeholder="جستجوی مشتری..." oninput="filterCustomers()"></div>
+            <table><thead><tr><th>#</th><th>نام</th><th>شماره</th><th>بدهی</th><th>طلب</th><th>عملیات</th></tr></thead><tbody id="custList"></tbody></table>
         </div>
+    </div>
 
-        <!-- تاریخچه حساب مشتری -->
-        <div class="card" id="customerHistorySection" style="display:none;">
-            <h3 id="custHistoryTitle">تاریخچه حساب</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>نوع عملیات</th>
-                        <th>مقدار</th>
-                        <th>باقی مانده</th>
-                        <th>توضیحات</th>
-                    </tr>
-                </thead>
-                <tbody id="custHistoryList">
-                    <tr><td colspan="5" class="text-center">تاریخچه‌ای وجود ندارد</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- === ثبت معامله === -->
-    <section id="transaction" class="page">
-        <h2>ثبت معامله جدید</h2>
+    <!-- ===== صفحه معاملات ===== -->
+    <div id="transactions" class="page">
+        <h2>ثبت معامله</h2>
         <div class="card">
+            <h3>معامله جدید</h3>
             <form id="transForm">
-                <select id="transCustomer" required>
-                    <option value="">انتخاب مشتری</option>
-                </select>
+                <select id="transCust" required><option value="">انتخاب مشتری...</option></select>
                 <select id="transType" required>
-                    <option value="">نوع معامله</option>
-                    <option value="خرید">💰 خرید ارز از مشتری (پول به مشتری می‌رود)</option>
-                    <option value="فروش">💵 فروش ارز به مشتری (مشتری پول می‌پردازد)</option>
+                    <option value="">نوع معامله...</option>
+                    <option value="خرید">💰 خرید ارز از مشتری</option>
+                    <option value="فروش">💵 فروش ارز به مشتری</option>
                 </select>
-                <select id="currency" required>
-                    <option value="">نوع ارز</option>
+                <select id="transCurrency">
+                    <option value="افغانی">افغانی</option>
                     <option value="دالر">دالر</option>
                     <option value="یورو">یورو</option>
-                    <option value="افغانی">افغانی</option>
                 </select>
-                <input type="number" id="amount" placeholder="مقدار" required step="0.01">
-                <input type="number" id="rate" placeholder="نرخ روز" required step="0.01">
-                <input type="text" id="desc" placeholder="توضیحات (اختیاری)">
+                <input type="number" id="transAmount" placeholder="مقدار" step="0.01" required>
+                <input type="number" id="transRate" placeholder="نرخ" step="0.01" required>
+                <input type="text" id="transDesc" placeholder="توضیحات (اختیاری)">
                 <button type="submit">✅ ثبت معامله</button>
             </form>
             <div id="transMsg" class="message"></div>
         </div>
-        <div class="restricted">⚠️ معامله خودکار به حساب مشتری اضافه/کاسته می‌شود. قابل ویرایش نیست.</div>
-    </section>
-
-    <!-- === ثبت حواله === -->
-    <section id="hawala" class="page">
-        <h2>ثبت حواله جدید</h2>
         <div class="card">
+            <h3>لیست معاملات</h3>
+            <table><thead><tr><th>تاریخ</th><th>مشتری</th><th>نوع</th><th>ارز</th><th>مبلغ</th><th>نرخ</th><th>مجموع</th></tr></thead><tbody id="transList"></tbody></table>
+        </div>
+    </div>
+
+    <!-- ===== صفحه حواله‌ها ===== -->
+    <div id="hawala" class="page">
+        <h2>حواله‌ها</h2>
+        <div class="card">
+            <h3>ثبت حواله جدید</h3>
             <form id="hawalaForm">
-                <select id="hawalaCustomer">
-                    <option value="">انتخاب مشتری (اختیاری)</option>
+                <select id="hawalaCust" required><option value="">انتخاب مشتری...</option></select>
+                <select id="hawalaDir" required>
+                    <option value="">نوع حواله...</option>
+                    <option value="دریافتی">📥 حواله دریافتی</option>
+                    <option value="پرداختی">📤 حواله پرداختی</option>
                 </select>
-                <select id="hawalaType" required>
-                    <option value="">نوع حواله</option>
-                    <option value="داخلی">🏠 داخلی (ولایات)</option>
-                    <option value="خارجی">🌍 خارجی</option>
-                </select>
-                <input type="text" id="senderName" placeholder="نام فرستنده" required>
-                <input type="text" id="senderPhone" placeholder="شماره تماس فرستنده" required>
-                <input type="text" id="receiverName" placeholder="نام گیرنده" required>
-                <input type="text" id="receiverPhone" placeholder="شماره تماس گیرنده" required>
-                <input type="text" id="destination" placeholder="مقصد" required>
-                <input type="number" id="hawalaAmount" placeholder="مقدار" required step="0.01">
-                <select id="hawalaCurrency" required>
-                    <option value="">نوع ارز</option>
-                    <option value="دالر">دالر</option>
-                    <option value="افغانی">افغانی</option>
-                </select>
-                <input type="number" id="commission" placeholder="کمیسیون" step="0.01" value="0">
-                <select id="hawalaDirection">
-                    <option value="in">پول به صراف می‌رسد (مشتری پرداخت کرد)</option>
-                    <option value="out">پول از صراف می‌رود (به مشتری تحویل داده شد)</option>
-                </select>
-                <input type="text" id="hawalaDesc" placeholder="توضیحات (اختیاری)">
+                <input type="text" id="hawalaFromTo" placeholder="از کجا / به کجا" required>
+                <input type="number" id="hawalaAmount" placeholder="مبلغ" step="0.01" required>
+                <input type="text" id="hawalaTrack" placeholder="شماره پیگیری">
+                <textarea id="hawalaNote" placeholder="توضیحات" rows="2"></textarea>
                 <button type="submit">✅ ثبت حواله</button>
             </form>
             <div id="hawalaMsg" class="message"></div>
         </div>
-        <div class="restricted">⚠️ حواله خودکار به حساب مشتری و روزنامچه اضافه می‌شود.</div>
-    </section>
-
-    <!-- === مصارف روزانه === -->
-    <section id="expense" class="page">
-        <h2>💵 مصارف روزانه</h2>
-        
         <div class="card">
-            <h3>ثبت مصرف</h3>
+            <h3>لیست حواله‌ها</h3>
+            <table><thead><tr><th>تاریخ</th><th>مشتری</th><th>نوع</th><th>مبلغ</th><th>مبدا/مقصد</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="hawalaList"></tbody></table>
+        </div>
+    </div>
+
+    <!-- ===== صفحه مصارف ===== -->
+    <div id="expenses" class="page">
+        <h2>مصارف روزانه</h2>
+        <div class="card">
+            <h3>ثبت مصرف جدید</h3>
             <form id="expenseForm">
-                <input type="text" id="expenseTitle" placeholder="عنوان مصرف (مثلاً: کرایه، برق، آب، دستمزد)" required>
-                <input type="number" id="expenseAmount" placeholder="مقدار (افغانی)" required step="0.01">
-                <textarea id="expenseDesc" placeholder="توضیحات بیشتر (اختیاری)" rows="3"></textarea>
-                <button type="submit" class="btn-expense">💵 ثبت مصرف</button>
+                <input type="text" id="expenseTitle" placeholder="عنوان مصرف" required>
+                <input type="number" id="expenseAmount" placeholder="مبلغ (افغانی)" step="0.01" required>
+                <textarea id="expenseNote" placeholder="توضیحات" rows="2"></textarea>
+                <button type="submit">✅ ثبت مصرف</button>
             </form>
             <div id="expenseMsg" class="message"></div>
         </div>
-
-        <div class="card">
-            <h3>فیلتر مصارف</h3>
-            <div class="date-range">
-                <label>تاریخ:</label>
-                <input type="date" id="expenseDateFrom">
-                <label>تا:</label>
-                <input type="date" id="expenseDateTo">
-                <button class="btn-sm btn-accent" onclick="loadExpenses()">نمایش</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>خلاصه مصارف</h3>
-            <div class="summary-box">
-                <div class="summary-item expense">مجموع مصارف<strong id="totalExpense">۰</strong></div>
-                <div class="summary-item">تعداد موارد<strong id="expenseCount">۰</strong></div>
-            </div>
-        </div>
-
         <div class="card">
             <h3>لیست مصارف</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>عنوان</th>
-                        <th>مقدار</th>
-                        <th>توضیحات</th>
-                        <th>ثبت‌کننده</th>
-                    </tr>
-                </thead>
-                <tbody id="expenseList">
-                    <tr><td colspan="5" class="text-center">هنوز مصرفی ثبت نشده</td></tr>
-                </tbody>
-            </table>
+            <table><thead><tr><th>تاریخ</th><th>عنوان</th><th>مبلغ</th><th>ثبت‌کننده</th></tr></thead><tbody id="expenseList"></tbody></table>
         </div>
-    </section>
+    </div>
 
-    <!-- === گزارشات === -->
-    <section id="reports" class="page">
-        <h2>📊 گزارشات و روزنامچه</h2>
-
+    <!-- ===== صفحه گزارشات ===== -->
+    <div id="reports" class="page">
+        <h2>گزارشات</h2>
         <div class="card">
-            <h3>بازه زمانی گزارش</h3>
-            <div class="period-tabs">
-                <button class="period-tab active" data-period="daily">📅 روزانه</button>
-                <button class="period-tab" data-period="weekly">📆 هفتگی</button>
-                <button class="period-tab" data-period="monthly">🗓️ ماهانه</button>
-                <button class="period-tab" data-period="quarterly">📋 سه‌ماهه</button>
-                <button class="period-tab" data-period="yearly">📈 سالانه</button>
-                <button class="period-tab" data-period="custom">🔘 انتخابی</button>
-            </div>
-
-            <div class="date-range" id="customRange">
-                <label>از تاریخ:</label>
-                <input type="date" id="dateFrom">
-                <label>تا تاریخ:</label>
-                <input type="date" id="dateTo">
-                <button class="btn-sm btn-accent" onclick="generateReport()">نمایش گزارش</button>
-                <button class="btn-sm print-btn" onclick="window.print()">🖨️ چاپ</button>
+            <h3>بازه زمانی</h3>
+            <input type="date" id="repFrom">
+            <input type="date" id="repTo">
+            <button onclick="genReport()">🔍 گرفتن گزارش</button>
+        </div>
+        <div class="card">
+            <h3>خلاصه گزارش</h3>
+            <div class="summary-grid">
+                <div class="summary-item income">کل دریافت<strong id="repTotalIncome">۰</strong></div>
+                <div class="summary-item expense">کل پرداخت<strong id="repTotalExpense">۰</strong></div>
+                <div class="summary-item">مجموع مصارف<strong id="repTotalExpenseAmt">۰</strong></div>
+                <div class="summary-item">خالص<strong id="repNet">۰</strong></div>
             </div>
         </div>
-
         <div class="card">
-            <h3 id="rptTitle">روزنامچه — امروز</h3>
-            <div class="summary-box">
-                <div class="summary-item income">پول دریافت شده<strong id="rptIncome">۰</strong></div>
-                <div class="summary-item expense">پول پرداخت شده<strong id="rptExpense">۰</strong></div>
-                <div class="summary-item expense">مجموع مصارف<strong id="rptExpenses">۰</strong></div>
-                <div class="summary-item">موجودی خالص<strong id="rptNet">۰</strong></div>
-                <div class="summary-item">تعداد معاملات<strong id="rptTrans">۰</strong></div>
-                <div class="summary-item">تعداد حواله‌ها<strong id="rptHawala">۰</strong></div>
-            </div>
+            <h3>جزئیات</h3>
+            <table><thead><tr><th>تاریخ</th><th>نوع</th><th>مشتری/عنوان</th><th>دریافت</th><th>پرداخت</th></tr></thead><tbody id="repDetail"></tbody></table>
         </div>
-
-        <div class="card">
-            <h3>معاملات</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>مشتری</th>
-                        <th>نوع</th>
-                        <th>ارز</th>
-                        <th>مقدار</th>
-                        <th>نرخ</th>
-                        <th>مبلغ</th>
-                        <th>اثر حساب</th>
-                    </tr>
-                </thead>
-                <tbody id="rptTransList">
-                    <tr><td colspan="8" class="text-center">هنوز معامله‌ای ثبت نشده</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="card">
-            <h3>حواله‌جات</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>شماره</th>
-                        <th>فرستنده</th>
-                        <th>گیرنده</th>
-                        <th>مقدار</th>
-                        <th>کمیسیون</th>
-                        <th>اثر حساب</th>
-                    </tr>
-                </thead>
-                <tbody id="rptHawalaList">
-                    <tr><td colspan="7" class="text-center">هنوز حواله‌ای ثبت نشده</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="card">
-            <h3>مصارف</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>تاریخ</th>
-                        <th>عنوان</th>
-                        <th>مقدار</th>
-                        <th>توضیحات</th>
-                    </tr>
-                </thead>
-                <tbody id="rptExpenseList">
-                    <tr><td colspan="4" class="text-center">هنوز مصرفی ثبت نشده</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- === لیست‌ها === -->
-    <section id="list" class="page">
-        <h2>لیست کامل</h2>
-        <div class="card">
-            <h3>معاملات</h3>
-            <table>
-                <thead>
-                    <tr><th>#</th><th>تاریخ</th><th>مشتری</th><th>نوع</th><th>ارز</th><th>مقدار</th><th>نرخ</th><th>مبلغ</th></tr>
-                </thead>
-                <tbody id="allTrans">
-                    <tr><td colspan="8" class="text-center">هنوز معامله‌ای ثبت نشده</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card">
-            <h3>حواله‌جات</h3>
-            <table>
-                <thead>
-                    <tr><th>#</th><th>تاریخ</th><th>فرستنده</th><th>گیرنده</th><th>مقصد</th><th>مقدار</th><th>کمیسیون</th></tr>
-                </thead>
-                <tbody id="allHawala">
-                    <tr><td colspan="7" class="text-center">هنوز حواله‌ای ثبت نشده</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- === مدیریت === -->
-    <section id="admin" class="page">
-        <h2>پنل مدیریت</h2>
-        <div class="card">
-            <h3>کاربران سیستم</h3>
-            <table>
-                <thead>
-                    <tr><th>نام کاربری</th><th>نام کامل</th><th>سطح دسترسی</th><th>وضعیت</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>admin</td><td>مدیر سیستم</td><td>⭐ ادمین کل</td><td>فعال</td></tr>
-                    <tr><td>user</td><td>کارمند صراف</td><td>🔹 کاربر عادی</td><td>فعال</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+    </div>
 </div>
 
 <script>
-// کاربران
-const users = {
-    admin: { pass: "1234", name: "مدیر سیستم", role: "admin" },
-    user:  { pass: "1234", name: "کارمند صراف", role: "user" }
+// داده‌های ذخیره شده
+let currentUser = null;
+let customers = JSON.parse(localStorage.getItem('custs') || '[]');
+let transactions = JSON.parse(localStorage.getItem('trans') || '[]');
+let hawalas = JSON.parse(localStorage.getItem('hawala') || '[]');
+let expenses = JSON.parse(localStorage.getItem('exp') || '[]');
+
+const users = { admin: {p:'1234',n:'مدیریت سیستم'}, user: {p:'1234',n:'کاربر عادی'} };
+
+// تاریخ امروز
+function todayDate() { return new Date().toISOString().split('T')[0]; }
+document.getElementById('todayDate').textContent = todayDate();
+
+// ===== ورود =====
+function loginUser() {
+    let u = document.getElementById('username').value.trim();
+    let p = document.getElementById('password').value.trim();
+    let msg = document.getElementById('loginMsg');
+    if (users[u] && users[u].p === p) {
+        currentUser = u;
+        localStorage.setItem('activeUser', u);
+        openSystem(users[u].n);
+    } else {
+        msg.textContent = '❌ نام کاربری یا رمز اشتباه است!';
+        msg.className = 'message error';
+    }
+}
+function logoutUser() {
+    currentUser = null;
+    localStorage.removeItem('activeUser');
+    document.getElementById('loginPage').classList.remove('hidden');
+    document.getElementById('mainSystem').classList.add('hidden');
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+}
+function openSystem(name) {
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('mainSystem').classList.remove('hidden');
+    document.getElementById('userNameDisplay').textContent = name;
+    refreshAll();
+}
+
+// بررسی خودکار ورود
+window.onload = function() {
+    let saved = localStorage.getItem('activeUser');
+    if (saved && users[saved]) {
+        currentUser = saved;
+        openSystem(users[saved].n);
+    }
 };
 
-let currentUser = null;
-let customers = [];       // لیست مشتریان
-let customerHistory = {}; // تاریخچه حساب هر مشتری
-let transactions = [];    // معاملات
-let hawalas = [];         // حواله‌جات
-let expenses = [];        // مصارف
-let counters = { cust: 1, trans: 1, hawala: 1, expense: 1 };
-let currentPeriod = 'daily';
-let selectedCustomerId = null;
-
-// ورود
-function login() {
-    const u = document.getElementById('username').value;
-    const p = document.getElementById('password').value;
-    const msg = document.getElementById('loginMsg');
-    if (users[u] && users[u].pass === p) {
-        currentUser = { username: u, ...users[u] };
-        startApp();
-    } else {
-        msg.textContent = "❌ نام کاربری یا رمز عبور نادرست";
-        msg.className = "message error";
-    }
-}
-function logout() {
-    currentUser = null;
-    document.getElementById('loginPage').classList.remove('hidden');
-    document.getElementById('mainApp').classList.add('hidden');
-}
-function startApp() {
-    document.getElementById('loginPage').classList.add('hidden');
-    document.getElementById('mainApp').classList.remove('hidden');
-    document.getElementById('userInfo').textContent = `${currentUser.name} | ${currentUser.role === 'admin' ? '⭐ ادمین' : '🔹 کاربر عادی'}`;
-    document.getElementById('roleInfo').innerHTML = currentUser.role === 'admin' 
-        ? "شما ادمین هستید — به تمام بخش‌ها دسترسی دارید."
-        : "شما کاربر عادی هستید — فقط ثبت کنید، امکان ویرایش یا حذف نیست.";
-    document.getElementById('adminNav').classList.toggle('hidden', currentUser.role !== 'admin');
-    setTodayDate();
-    updateDashboard();
-    updateCustomerDropdowns();
-}
-function setTodayDate() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('dateFrom').value = today;
-    document.getElementById('dateTo').value = today;
-    document.getElementById('expenseDateFrom').value = today;
-    document.getElementById('expenseDateTo').value = today;
-}
-
-// تغییر صفحه
+// ===== منوی صفحه‌ها =====
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-        const page = this.dataset.page;
-        if (page === 'admin' && currentUser.role !== 'admin') return;
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(page).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
         this.classList.add('active');
-        if (page === 'customers') renderCustomerList();
-        if (page === 'reports') generateReport();
-        if (page === 'expense') loadExpenses();
-        if (page === 'list') updateAllLists();
+        document.getElementById(this.dataset.page).classList.add('active');
+        if (this.dataset.page === 'reports') genReport();
     });
 });
 
-// انتخاب دوره زمانی
-document.querySelectorAll('.period-tab').forEach(tab => {
-    tab.addEventListener('click', function() {
-        document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        currentPeriod = this.dataset.period;
-        adjustDateRange();
-        generateReport();
-    });
-});
-
-function adjustDateRange() {
-    const now = new Date();
-    let from = new Date(now);
-    let title = 'گزارش';
-    switch(currentPeriod) {
-        case 'daily':
-            from = new Date(now);
-            title = 'روزنامچه — ' + now.toLocaleDateString('fa-IR');
-            break;
-        case 'weekly':
-            from.setDate(now.getDate() - 7);
-            title = 'گزارش هفتگی';
-            break;
-        case 'monthly':
-            from.setMonth(now.getMonth() - 1);
-            title = 'گزارش ماهانه';
-            break;
-        case 'quarterly':
-            from.setMonth(now.getMonth() - 3);
-            title = 'گزارش سه‌ماهه';
-            break;
-        case 'yearly':
-            from.setFullYear(now.getFullYear() - 1);
-            title = 'گزارش سالانه';
-            break;
-        case 'custom':
-            title = 'گزارش انتخابی';
-            return;
-    }
-    document.getElementById('dateFrom').value = from.toISOString().split('T')[0];
-    document.getElementById('dateTo').value = now.toISOString().split('T')[0];
-    document.getElementById('rptTitle').textContent = title;
+// ===== ذخیره داده‌ها =====
+function saveData() {
+    localStorage.setItem('custs', JSON.stringify(customers));
+    localStorage.setItem('trans', JSON.stringify(transactions));
+    localStorage.setItem('hawala', JSON.stringify(hawalas));
+    localStorage.setItem('exp', JSON.stringify(expenses));
 }
 
-// ========== مدیریت مشتریان ==========
+// ===== مشتریان =====
 document.getElementById('customerForm').addEventListener('submit', e => {
     e.preventDefault();
-    const cust = {
-        id: counters.cust++,
-        name: document.getElementById('custName').value,
-        phone: document.getElementById('custPhone').value,
-        desc: document.getElementById('custDesc').value,
-        balanceUs: 0,    // بدهی ما به مشتری (نزد ما)
-        balanceHim: 0,  // بدهی مشتری به ما (نزد او)
-        lastUpdate: new Date().toISOString().split('T')[0]
-    };
-    customers.push(cust);
-    customerHistory[cust.id] = [];
-    customerHistory[cust.id].push({
-        date: cust.lastUpdate,
-        type: "افتتاح حساب",
-        amount: 0,
-        balance: 0,
-        desc: "حساب جدید باز شد"
-    });
-    document.getElementById('custMsg').textContent = "✅ مشتری ثبت شد";
-    document.getElementById('custMsg').className = "message success";
+    let name = document.getElementById('custName').value.trim();
+    let phone = document.getElementById('custPhone').value.trim();
+    let note = document.getElementById('custNote').value.trim();
+    customers.push({id:Date.now(), name, phone, note, debt:0, claim:0});
+    saveData();
+    document.getElementById('custMsg').textContent = '✅ مشتری ثبت شد';
+    document.getElementById('custMsg').className = 'message success';
     document.getElementById('customerForm').reset();
-    setTimeout(() => document.getElementById('custMsg').style.display='none', 3000);
-    renderCustomerList();
-    updateCustomerDropdowns();
+    setTimeout(()=>document.getElementById('custMsg').style.display='none',2500);
+    refreshAll();
 });
-
-function renderCustomerList(filter = '') {
-    const tbody = document.getElementById('customerList');
-    const filtered = customers.filter(c => 
-        c.name.includes(filter) || c.phone.includes(filter)
-    );
-    if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center">مشتری‌ای یافت نشد</td></tr>';
-        return;
-    }
-    tbody.innerHTML = filtered.map(c => {
-        const net = c.balanceUs - c.balanceHim;
-        const netClass = net > 0 ? 'balance-positive' : net < 0 ? 'balance-negative' : '';
-        const netText = net > 0 ? `ما به او ${net.toFixed(2)} افغانی داریم` : 
-                        net < 0 ? `او به ما ${(-net).toFixed(2)} افغانی دارد` : 'حساب صفر است';
-        return `
+function renderCustList(list = customers) {
+    let html = list.length ? list.map(c => `
         <tr>
-            <td>${c.id}</td>
+            <td>${c.id.toString().slice(-5)}</td>
             <td>${c.name}</td>
             <td>${c.phone || '-'}</td>
-            <td>${c.balanceUs.toFixed(2)}</td>
-            <td>${c.balanceHim.toFixed(2)}</td>
-            <td class="${netClass}">${netText}</td>
-            <td>${c.lastUpdate}</td>
-            <td><button class="btn-sm" onclick="showCustomerHistory(${c.id})">تاریخچه</button></td>
-        </tr>`;
-    }).join('');
+            <td style="color:var(--expense)">${c.debt.toFixed(2)}</td>
+            <td style="color:var(--income)">${c.claim.toFixed(2)}</td>
+            <td><button class="btn-sm btn-danger" onclick="delCust(${c.id})">حذف</button></td>
+        </tr>`).join('') : '<tr><td colspan="6" class="text-center">مشتری وجود ندارد</td></tr>';
+    document.getElementById('custList').innerHTML = html;
 }
-
 function filterCustomers() {
-    renderCustomerList(document.getElementById('searchCustomer').value);
+    let q = document.getElementById('searchCust').value.trim().toLowerCase();
+    renderCustList(customers.filter(c => c.name.toLowerCase().includes(q) || c.phone.includes(q)));
 }
-
-function showCustomerHistory(custId) {
-    selectedCustomerId = custId;
-    const cust = customers.find(c => c.id === custId);
-    document.getElementById('custHistoryTitle').textContent = `تاریخچه حساب: ${cust.name}`;
-    document.getElementById('customerHistorySection').style.display = 'block';
-    
-    const history = customerHistory[custId] || [];
-    document.getElementById('custHistoryList').innerHTML = history.length === 0
-        ? '<tr><td colspan="5" class="text-center">تاریخچه‌ای وجود ندارد</td></tr>'
-        : history.map(h => `
-            <tr>
-                <td>${h.date}</td>
-                <td>${h.type}</td>
-                <td>${h.amount.toFixed(2)}</td>
-                <td>${h.balance.toFixed(2)}</td>
-                <td>${h.desc || '-'}</td>
-            </tr>`).join('');
-}
-
-function updateCustomerDropdowns() {
-    const opts = customers.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-    document.getElementById('transCustomer').innerHTML = '<option value="">انتخاب مشتری</option>' + opts;
-    document.getElementById('hawalaCustomer').innerHTML = '<option value="">انتخاب مشتری (اختیاری)</option>' + opts;
-}
-
-// ========== بروزرسانی حساب مشتری ==========
-function updateCustomerBalance(custId, amount, type, desc) {
-    const cust = customers.find(c => c.id == custId);
-    if (!cust) return;
-    
-    const date = new Date().toISOString().split('T')[0];
-    let change = 0;
-    let effectText = '';
-    
-    if (type === 'فروش') {
-        // فروش ارز به مشتری = مشتری پول می‌دهد → بدهی ما کم می‌شود یا بدهی او زیاد می‌شود
-        cust.balanceHim += amount;
-        change = amount;
-        effectText = 'مشتری پرداخت کرد';
-    } else if (type === 'خرید') {
-        // خرید ارز از مشتری = ما پول می‌دهیم → بدهی ما زیاد می‌شود
-        cust.balanceUs += amount;
-        change = amount;
-        effectText = 'پول به مشتری داده شد';
-    } else if (type === 'hawala_in') {
-        // حواله: پول از مشتری دریافت شد
-        cust.balanceHim += amount;
-        change = amount;
-        effectText = 'پول حواله دریافت شد';
-    } else if (type === 'hawala_out') {
-        // حواله: پول به مشتری داده شد
-        cust.balanceUs += amount;
-        change = amount;
-        effectText = 'پول حواله تحویل داده شد';
+function delCust(id) {
+    if(confirm('مطمئن هستید؟')) {
+        customers = customers.filter(c => c.id !== id);
+        saveData(); refreshAll();
     }
-    
-    cust.lastUpdate = date;
-    
-    // محاسبه مانده جدید
-    const net = cust.balanceUs - cust.balanceHim;
-    
-    // اضافه به تاریخچه
-    customerHistory[cust.id].push({
-        date: date,
-        type: effectText,
-        amount: change,
-        balance: net,
-        desc: desc
-    });
-    
-    renderCustomerList();
-    if (selectedCustomerId == custId) showCustomerHistory(custId);
 }
 
-// ========== ثبت معامله ==========
+// ===== معاملات =====
 document.getElementById('transForm').addEventListener('submit', e => {
     e.preventDefault();
-    const custId = parseInt(document.getElementById('transCustomer').value);
-    const type = document.getElementById('transType').value;
-    const currency = document.getElementById('currency').value;
-    const amount = parseFloat(document.getElementById('amount').value);
-    const rate = parseFloat(document.getElementById('rate').value);
-    const total = amount * rate;
-    const desc = document.getElementById('desc').value;
-    const date = new Date().toISOString().split('T')[0];
-    
-    const t = {
-        id: counters.trans++,
-        custId: custId,
-        type: type,
-        currency: currency,
-        amount: amount,
-        rate: rate,
-        total: total,
-        desc: desc,
-        user: currentUser.name,
-        date: date
-    };
-    transactions.unshift(t);
-    
-    // بروزرسانی حساب مشتری
-    updateCustomerBalance(custId, total, type, `${type} ${amount} ${currency} به نرخ ${rate}`);
-    
-    document.getElementById('transMsg').textContent = "✅ معامله ثبت شد — حساب مشتری بروزرسانی گردید";
-    document.getElementById('transMsg').className = "message success";
+    let cid = parseInt(document.getElementById('transCust').value);
+    let type = document.getElementById('transType').value;
+    let curr = document.getElementById('transCurrency').value;
+    let amt = parseFloat(document.getElementById('transAmount').value);
+    let rate = parseFloat(document.getElementById('transRate').value);
+    let desc = document.getElementById('transDesc').value.trim();
+    let total = amt * rate;
+    let cust = customers.find(c => c.id === cid);
+    if (type === 'خرید') { cust.debt += total; } else { cust.claim += total; }
+    transactions.unshift({id:Date.now(), date:todayDate(), cid, cname:cust.name, type, curr, amt, rate, total, desc});
+    saveData();
+    document.getElementById('transMsg').textContent = '✅ معامله ثبت شد';
+    document.getElementById('transMsg').className = 'message success';
     document.getElementById('transForm').reset();
-    setTimeout(() => document.getElementById('transMsg').style.display='none', 3000);
-    
-    updateDashboard();
-    updateCustomerDropdowns();
+    setTimeout(()=>document.getElementById('transMsg').style.display='none',2500);
+    refreshAll();
 });
+function renderTransList() {
+    let html = transactions.length ? transactions.map(t => `
+        <tr>
+            <td>${t.date}</td>
+            <td>${t.cname}</td>
+            <td>${t.type === 'خرید' ? '💰 خرید' : '💵 فروش'}</td>
+            <td>${t.curr}</td>
+            <td>${t.amt}</td>
+            <td>${t.rate}</td>
+            <td>${t.total.toFixed(2)}</td>
+        </tr>`).join('') : '<tr><td colspan="7" class="text-center">معامله‌ای ثبت نشده</td></tr>';
+    document.getElementById('transList').innerHTML = html;
+}
 
-// ========== ثبت حواله ==========
+// ===== حواله‌ها =====
 document.getElementById('hawalaForm').addEventListener('submit', e => {
     e.preventDefault();
-    const custId = document.getElementById('hawalaCustomer').value;
-    const type = document.getElementById('hawalaType').value;
-    const sender = document.getElementById('senderName').value;
-    const receiver = document.getElementById('receiverName').value;
-    const dest = document.getElementById('destination').value;
-    const amount = parseFloat(document.getElementById('hawalaAmount').value);
-    const currency = document.getElementById('hawalaCurrency').value;
-    const commission = parseFloat(document.getElementById('commission').value) || 0;
-    const direction = document.getElementById('hawalaDirection').value;
-    const desc = document.getElementById('hawalaDesc').value;
-    const date = new Date().toISOString().split('T')[0];
-    
-    const h = {
-        id: counters.hawala++,
-        custId: custId || null,
-        type: type,
-        sender: sender,
-        receiver: receiver,
-        dest: dest,
-        amount: amount,
-        currency: currency,
-        commission: commission,
-        direction: direction,
-        desc: desc,
-        user: currentUser.name,
-        date: date
-    };
-    hawalas.unshift(h);
-    
-    // بروزرسانی حساب مشتری اگر انتخاب شده باشد
-    if (custId) {
-        const totalAmount = amount + commission;
-        const balType = direction === 'in' ? 'hawala_in' : 'hawala_out';
-        updateCustomerBalance(parseInt(custId), totalAmount, balType, `حواله H-${h.id}: ${sender} → ${receiver}, ${dest}`);
-    }
-    
-    document.getElementById('hawalaMsg').textContent = "✅ حواله ثبت شد — شماره: H-" + h.id + (custId ? " | حساب مشتری بروزرسانی شد" : "");
-    document.getElementById('hawalaMsg').className = "message success";
+    let cid = parseInt(document.getElementById('hawalaCust').value);
+    let dir = document.getElementById('hawalaDir').value;
+    let ft = document.getElementById('hawalaFromTo').value.trim();
+    let amt = parseFloat(document.getElementById('hawalaAmount').value);
+    let track = document.getElementById('hawalaTrack').value.trim();
+    let note = document.getElementById('hawalaNote').value.trim();
+    let cust = customers.find(c => c.id === cid);
+    hawalas.unshift({id:Date.now(), date:todayDate(), cid, cname:cust.name, dir, ft, amt, track, note, status:'در انتظار'});
+    saveData();
+    document.getElementById('hawalaMsg').textContent = '✅ حواله ثبت شد';
+    document.getElementById('hawalaMsg').className = 'message success';
     document.getElementById('hawalaForm').reset();
-    setTimeout(() => document.getElementById('hawalaMsg').style.display='none', 4000);
-    
-    updateDashboard();
+    setTimeout(()=>document.getElementById('hawalaMsg').style.display='none',2500);
+    refreshAll();
 });
+function renderHawalaList() {
+    let html = hawalas.length ? hawalas.map(h => `
+        <tr>
+            <td>${h.date}</td>
+            <td>${h.cname}</td>
+            <td>${h.dir === 'دریافتی' ? '📥 دریافتی' : '📤 پرداختی'}</td>
+            <td>${h.amt}</td>
+            <td>${h.ft}</td>
+            <td><span class="tag ${h.status === 'تکمیل شد' ? 'done' : h.status === 'لغو شد' ? 'cancel' : 'pending'}">${h.status}</span></td>
+            <td>
+                ${h.status === 'در انتظار' ? `<button class="btn-sm" onclick="updHawala(${h.id},'تکمیل شد')">✅</button><button class="btn-sm btn-danger" onclick="updHawala(${h.id},'لغو شد')">❌</button>` : ''}
+            </td>
+        </tr>`).join('') : '<tr><td colspan="7" class="text-center">حواله‌ای ثبت نشده</td></tr>';
+    document.getElementById('hawalaList').innerHTML = html;
+}
+function updHawala(id, st) {
+    let h = hawalas.find(x=>x.id===id);
+    if(h) { h.status = st; saveData(); refreshAll(); }
+}
 
-// ========== ثبت مصارف ==========
+// ===== مصارف =====
 document.getElementById('expenseForm').addEventListener('submit', e => {
     e.preventDefault();
-    const exp = {
-        id: counters.expense++,
-        title: document.getElementById('expenseTitle').value,
-        amount: parseFloat(document.getElementById('expenseAmount').value),
-        desc: document.getElementById('expenseDesc').value,
-        user: currentUser.name,
-        date: new Date().toISOString().split('T')[0]
-    };
-    expenses.unshift(exp);
-    
-    document.getElementById('expenseMsg').textContent = "✅ مصرف ثبت شد";
-    document.getElementById('expenseMsg').className = "message success";
+    let title = document.getElementById('expenseTitle').value.trim();
+    let amt = parseFloat(document.getElementById('expenseAmount').value);
+    let note = document.getElementById('expenseNote').value.trim();
+    expenses.unshift({id:Date.now(), date:todayDate(), title, amount:amt, note, user:currentUser});
+    saveData();
+    document.getElementById('expenseMsg').textContent = '✅ مصرف ثبت شد';
+    document.getElementById('expenseMsg').className = 'message success';
     document.getElementById('expenseForm').reset();
-    setTimeout(() => document.getElementById('expenseMsg').style.display='none', 3000);
-    
-    loadExpenses();
-    updateDashboard();
+    setTimeout(()=>document.getElementById('expenseMsg').style.display='none',2500);
+    refreshAll();
 });
-
-function loadExpenses() {
-    const from = document.getElementById('expenseDateFrom').value;
-    const to = document.getElementById('expenseDateTo').value;
-    const filtered = expenses.filter(e => e.date >= from && e.date <= to);
-    
-    document.getElementById('totalExpense').textContent = filtered.reduce((s,e) => s + e.amount, 0).toFixed(2);
-    document.getElementById('expenseCount').textContent = filtered.length;
-    
-    document.getElementById('expenseList').innerHTML = filtered.length === 0
-        ? '<tr><td colspan="5" class="text-center">مصرفی یافت نشد</td></tr>'
-        : filtered.map(e => `
-            <tr>
-                <td>${e.date}</td>
-                <td>${e.title}</td>
-                <td>${e.amount.toFixed(2)}</td>
-                <td>${e.desc || '-'}</td>
-                <td>${e.user}</td>
-            </tr>`).join('');
+function renderExpenseList() {
+    let html = expenses.length ? expenses.map(e => `
+        <tr>
+            <td>${e.date}</td>
+            <td>${e.title}</td>
+            <td>${e.amount.toFixed(2)}</td>
+            <td>${e.user}</td>
+        </tr>`).join('') : '<tr><td colspan="4" class="text-center">مصرفی ثبت نشده</td></tr>';
+    document.getElementById('expenseList').innerHTML = html;
 }
 
-// ========== بروزرسانی داشبورد ==========
-function updateDashboard() {
-    const today = new Date().toISOString().split('T')[0];
-    const todayTrans = transactions.filter(t => t.date === today);
-    const todayHawala = hawalas.filter(h => h.date === today);
-    const todayExp = expenses.filter(e => e.date === today);
+// ===== گزارشات =====
+function genReport() {
+    let from = document.getElementById('repFrom').value || todayDate();
+    let to = document.getElementById('repTo').value || todayDate();
+    let filtTrans = transactions.filter(t => t.date >= from && t.date <= to);
+    let filtHawala = hawalas.filter(h => h.date >= from && h.date <= to && h.status === 'تکمیل شد');
+    let filtExp = expenses.filter(e => e.date >= from && e.date <= to);
     
-    const income = todayTrans.filter(t => t.type === 'فروش').reduce((s,t) => s + t.total, 0)
-                   + todayHawala.filter(h => h.direction === 'in').reduce((s,h) => s + h.amount + h.commission, 0);
-    const expense = todayTrans.filter(t => t.type === 'خرید').reduce((s,t) => s + t.total, 0)
-                    + todayHawala.filter(h => h.direction === 'out').reduce((s,h) => s + h.amount, 0);
-    const totalExpense = todayExp.reduce((s,e) => s + e.amount, 0);
+    let totalIncome = filtTrans.filter(t=>t.type==='فروش').reduce((s,t)=>s+t.total,0)
+        + filtHawala.filter(h=>h.dir==='دریافتی').reduce((s,h)=>s+h.amt,0);
+    let totalExpense = filtTrans.filter(t=>t.type==='خرید').reduce((s,t)=>s+t.total,0)
+        + filtHawala.filter(h=>h.dir==='پرداختی').reduce((s,h)=>s+h.amt,0);
+    let totalExpAmt = filtExp.reduce((s,e)=>s+e.amount,0);
     
-    document.getElementById('todayIncome').textContent = income.toFixed(2);
-    document.getElementById('todayExpense').textContent = expense.toFixed(2);
-    document.getElementById('todayTrans').textContent = todayTrans.length;
-    document.getElementById('todayHawala').textContent = todayHawala.length;
-    document.getElementById('todayExpenses').textContent = totalExpense.toFixed(2);
-    document.getElementById('todayBalance').textContent = (income - expense - totalExpense).toFixed(2);
+    document.getElementById('repTotalIncome').textContent = totalIncome.toFixed(2);
+    document.getElementById('repTotalExpense').textContent = totalExpense.toFixed(2);
+    document.getElementById('repTotalExpenseAmt').textContent = totalExpAmt.toFixed(2);
+    document.getElementById('repNet').textContent = (totalIncome - totalExpense - totalExpAmt).toFixed(2);
+    
+    let detail = [];
+    filtTrans.forEach(t => detail.push({date:t.date, type:'معامله', name:t.cname, income:t.type==='فروش'?t.total:0, expense:t.type==='خرید'?t.total:0}));
+    filtHawala.forEach(h => detail.push({date:h.date, type:'حواله', name:h.cname, income:h.dir==='دریافتی'?h.amt:0, expense:h.dir==='پرداختی'?h.amt:0}));
+    filtExp.forEach(e => detail.push({date:e.date, type:'مصرف', name:e.title, income:0, expense:e.amount}));
+    detail.sort((a,b)=>b.date.localeCompare(a.date));
+    
+    document.getElementById('repDetail').innerHTML = detail.length ? detail.map(d=>`
+        <tr>
+            <td>${d.date}</td>
+            <td>${d.type}</td>
+            <td>${d.name}</td>
+            <td>${d.income?d.income.toFixed(2):'-'}</td>
+            <td>${d.expense?d.expense.toFixed(2):'-'}</td>
+        </tr>`).join('') : '<tr><td colspan="5" class="text-center">داده‌ای یافت نشد</td></tr>';
 }
 
-// ========== تولید گزارش ==========
-function generateReport() {
-    const from = document.getElementById('dateFrom').value;
-    const to = document.getElementById('dateTo').value;
+// ===== بروزرسانی همه =====
+function refreshAll() {
+    // داشبورد
+    let today = todayDate();
+    let dayTrans = transactions.filter(t=>t.date===today);
+    let dayHawala = hawalas.filter(h=>h.date===today && h.status==='تکمیل شد');
+    let dayIncome = dayTrans.filter(t=>t.type==='فروش').reduce((s,t)=>s+t.total,0)
+        + dayHawala.filter(h=>h.dir==='دریافتی').reduce((s,h)=>s+h.amt,0);
+    let dayExpense = dayTrans.filter(t=>t.type==='خرید').reduce((s,t)=>s+t.total,0)
+        + dayHawala.filter(h=>h.dir==='پرداختی').reduce((s,h)=>s+h.amt,0);
+    document.getElementById('dashIncome').textContent = dayIncome.toFixed(2);
+    document.getElementById('dashExpense').textContent = dayExpense.toFixed(2);
+    document.getElementById('dashTrans').textContent = transactions.length;
+    document.getElementById('dashCust').textContent = customers.length;
     
-    const filteredTrans = transactions.filter(t => t.date >= from && t.date <= to);
-    const filteredHawala = hawalas.filter(h => h.date >= from && h.date <= to);
-    const filteredExp = expenses.filter(e => e.date >= from && e.date <= to);
+    let last5 = transactions.slice(0,5);
+    document.getElementById('lastTrans').innerHTML = last5.length ? last5.map(t=>`
+        <tr><td>${t.date}</td><td>${t.cname}</td><td>${t.type}</td><td>${t.total.toFixed(2)}</td></tr>`).join('')
+        : '<tr><td colspan="4" class="text-center">هنوز معامله‌ای ثبت نشده</td></tr>';
     
-    const income = filteredTrans.filter(t => t.type === 'فروش').reduce((s,t) => s + t.total, 0)
-                   + filteredHawala.filter(h => h.direction === 'in').reduce((s,h) => s + h.amount + h.commission, 0);
-    const expense = filteredTrans.filter(t => t.type === 'خرید').reduce((s,t) => s + t.total, 0)
-                    + filteredHawala.filter(h => h.direction === 'out').reduce((s,h) => s + h.amount, 0);
-    const totalExpense = filteredExp.reduce((s,e) => s + e.amount, 0);
+    // لیست‌ها
+    renderCustList();
+    renderTransList();
+    renderHawalaList();
+    renderExpenseList();
     
-    document.getElementById('rptIncome').textContent = income.toFixed(2);
-    document.getElementById('rptExpense').textContent = expense.toFixed(2);
-    document.getElementById('rptExpenses').textContent = totalExpense.toFixed(2);
-    document.getElementById('rptNet').textContent = (income - expense - totalExpense).toFixed(2);
-    document.getElementById('rptTrans').textContent = filteredTrans.length;
-    document.getElementById('rptHawala').textContent = filteredHawala.length;
-    
-    // لیست معاملات گزارش
-    document.getElementById('rptTransList').innerHTML = filteredTrans.length === 0 
-        ? '<tr><td colspan="8" class="text-center">داده‌ای یافت نشد</td></tr>'
-        : filteredTrans.map(t => {
-            const cust = customers.find(c => c.id === t.custId);
-            const effect = t.type === 'فروش' ? 'دریافت شد' : 'پرداخت شد';
-            return `
-            <tr>
-                <td>${t.date}</td>
-                <td>${cust ? cust.name : '-'}</td>
-                <td>${t.type}</td>
-                <td>${t.currency}</td>
-                <td>${t.amount}</td>
-                <td>${t.rate}</td>
-                <td>${t.total.toFixed(2)}</td>
-                <td>${effect}</td>
-            </tr>`;
-        }).join('');
-    
-    // لیست حواله‌ها گزارش
-    document.getElementById('rptHawalaList').innerHTML = filteredHawala.length === 0 
-        ? '<tr><td colspan="7" class="text-center">داده‌ای یافت نشد</td></tr>'
-        : filteredHawala.map(h => {
-            const effect = h.direction === 'in' ? 'دریافت شد' : 'پرداخت شد';
-            return `
-            <tr>
-                <td>${h.date}</td>
-                <td>H-${h.id}</td>
-                <td>${h.sender}</td>
-                <td>${h.receiver}</td>
-                <td>${h.amount} ${h.currency}</td>
-                <td>${h.commission}</td>
-                <td>${effect}</td>
-            </tr>`;
-        }).join('');
-    
-    // لیست مصارف گزارش
-    document.getElementById('rptExpenseList').innerHTML = filteredExp.length === 0
-        ? '<tr><td colspan="4" class="text-center">مصرفی یافت نشد</td></tr>'
-        : filteredExp.map(e => `
-            <tr>
-                <td>${e.date}</td>
-                <td>${e.title}</td>
-                <td>${e.amount.toFixed(2)}</td>
-                <td>${e.desc || '-'}</td>
-            </tr>`).join('');
+    // آپشن‌های مشتری در فرم‌ها
+    let opt = customers.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+    document.getElementById('transCust').innerHTML = '<option value="">انتخاب مشتری...</option>' + opt;
+    document.getElementById('hawalaCust').innerHTML = '<option value="">انتخاب مشتری...</option>' + opt;
 }
+</script>
 
-function updateAllLists() {
-    document.getElementById('allTrans').innerHTML = transactions.length === 0
-        ? '<tr><td colspan="8" class="text-center">هنوز معامله‌ای ثبت نشده</td></tr>'
-        : transactions.map(t => {
-            const cust = customers.find(c => c.id === t.custId);
-            return `
-            <tr>
-                <td>${t.id}</td>
-                <td>${t.date}</td>
-                <td>${cust ? cust.name : '-'}</td>
-                <
+</body>
+</html>
